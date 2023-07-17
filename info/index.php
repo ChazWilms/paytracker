@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<link rel="stylesheet" href="./style.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+</head>
+
+<body>
+
+<div id="navBar">
+<ul>
+  <li><a href="https://xerwai.com">Home</a></li>
+  <li><a href="../">Payment Info</a></li>
+  <li><a href="../account">Account Info</a></li>
+  <li><a href="../../help">Help</a></li>
+  <li id="right_align"><p>userid</p></li>
+</ul>
+</div>
+<p id="fail_writer"></p>
+
+
+
+<!-- Quick finance can show just 3 lines and they are tim euntill next pay and amount with an in progress for the week that is still being counted -->
+<!-- prevent sql injections and divs inside divs to create boxes in teh boxes -->
+<!-- text color for extended info with green and red -->
+
+
+<div id="mainContainer">
+  <div id="one" class='box_test'><p class="centerme">Quick Finance Information <br> Past 7 Days</p><p id="qf_info" class="centerme">Loading...</p></div>
+  <div id="two" class="box_test"><p class="centerme">Upcoming Work Days</p><p id="future" class="centerme">Loading...</p></div>
+  <div id="three" class="box_test"><p class="centerme">Recent Work Days (week)</p><p id="recent" class="centerme">Loading...</p></div>
+  <div id="four" class="box_test"><p class="centerme">Extended Finance Info</p></div>
+  <div id="six" class="box_test"><p class="centerme" id="amount">Count</p></div>
+  <div id="five" class="box_test"><p class="centerme">Footer</p><p class="centerme">Donations:<br> <a href="../donations">CLICK ME</a></div>
+</div>
+
+
+
+
+
+
+<script>
+
+$.getJSON("userCall.php", function(data){
+ console.log(data);
+document.getElementById("right_align").innerHTML="User: " + data;
+
+
+});
+
+console.log("RECENT WORK DAYS begin");
+<!-- http://www.mustbebuilt.co.uk/jquery-introduction/ajax-getjson-jquery-get-jquery-post-load/ -->
+$.getJSON('recentCall.php', function(data) {
+    document.getElementById("recent").innerHTML= JSON.stringify(data);
+if (data != "0 results" && data != "NOT_LOGGED_IN") {
+    var br = "<br>";
+    var str1 = ""
+    for (var i=0; i < data.length; i++) {
+        <!-- console.log("Date: "+data[i].date_info +" Hours: " + data[i].hours + br); -->
+        
+        str1 = str1.concat("Date: "+data[i].date_info +", Hours: " + data[i].hours + br);
+}
+    document.getElementById("recent").innerHTML= (str1);
+
+} else if (data == "0 results") {
+    document.getElementById("recent").innerHTML= ("No Recent Work Days");
+
+} else if (data == "NOT_LOGGED_IN") {
+    document.getElementById("recent").innerHTML= ("Not Logged In");
+
+} else {
+    document.getElementById("recent").innerHTML= ("Unknown Error");
+
+}
+console.log("RECENT WORK DAYS over in");
+});
+console.log("RECENT WORK DAYS over out");
+
+
+
+
+console.log("FUTURE WORK DAYS begin");
+<!-- http://www.mustbebuilt.co.uk/jquery-introduction/ajax-getjson-jquery-get-jquery-post-load/ -->
+$.getJSON('futureCall.php', function(data) {
+    document.getElementById("future").innerHTML= JSON.stringify(data);
+console.log(data);
+if (data != "0 results" && data != "NOT_LOGGED_IN") {
+    var br = "<br>";
+    var str1 = ""
+    for (var i=0; i < data.length; i++) {
+        length = parseFloat(data[i].length.split(':')[0]) + parseFloat(data[i].length.split(':')[1])/60;
+        if (Number.isInteger(length)) {
+           length = length + '';
+           length = length.split(".");
+} else {
+    length = length.toPrecision(3);
+
+}
+
+
+
+
+
+        const date2 = Math.floor(new Date(data[i].date_info).getTime()) + 14400000
+        var date_choice = "";
+        var today = new Date()
+        today = today.setHours(0,0,0,0);
+        var tmrw = today + 86400000
+
+    if (today ==  date2) {
+        var date_choice = "TDY";
+} else if (tmrw ==  date2) {
+        var date_choice = "TMRW";
+
+
+} else {
+date_choice = data[i].date_info.slice(5)
+
+}
+time = (data[i].start_time).split(' ')[1];
+time_split = time.split(':');
+if (time_split[1] == "00" && time_split[2] == "00") {
+time = time_split[0];
+} else if (time_split[1] == "00") {
+time = time_split[0] + ":" + time_split[1];
+
+} else { time = time}
+
+
+
+
+        str1 = str1.concat("Date: " + date_choice + ", Start: " + time + ", Len: " + length  + " <br>"       );
+<!-- str1 = str1.concat(JSON.stringify(data[i])); -->
+
+}
+    document.getElementById("future").innerHTML= (str1);
+
+} else if (data == "0 results") {
+    document.getElementById("future").innerHTML= ("No Upcoming Work Days");
+
+} else if (data == "NOT_LOGGED_IN") {
+document.getElementById("future").innerHTML= ("Not Logged In");
+ 
+
+} else {
+document.getElementById("future").innerHTML= ("Unknown Error " + data + " !");
+ 
+}
+
+
+
+
+console.log("FUTURE WORK DAYS over in");
+});
+console.log("FUTURE WORK DAYS over out");
+
+
+
+
+
+
+
+
+
+console.log("QF begin");
+<!-- http://www.mustbebuilt.co.uk/jquery-introduction/ajax-getjson-jquery-get-jquery-post-load/ -->
+$.getJSON('QfinanceCall.php', function(data) {
+    document.getElementById("qf_info").innerHTML= JSON.stringify(data);
+if (data != "0 results" && data != "NOT_LOGGED_IN") {
+    document.getElementById("qf_info").innerHTML= JSON.stringify(data);
+    var str2 = '';
+    var str2 = str2.concat("Hours worked: "+data[1].toFixed(2) +'<br>'+ "Gross: $"       +   '<span style="color: green; font-weight: 600">'   + data[0].toFixed(2) + '</span>' + "<br>" + "Net:" + "N/A currently");
+    document.getElementById("qf_info").innerHTML= str2;
+} else if (data == "0 results") {
+    document.getElementById("qf_info").innerHTML= ("No Upcoming Work Days");
+
+} else if (data == "NOT_LOGGED_IN") {
+document.getElementById("qf_info").innerHTML= ("Not Logged In");
+ 
+
+} else {
+document.getElementById("qf_info").innerHTML= ("Unknown Error " + data + " !");
+ 
+}
+
+
+
+
+console.log("QF over in");
+});
+console.log("QF over out");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+
+
+</body>
+</html>
