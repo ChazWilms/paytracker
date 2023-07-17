@@ -52,7 +52,7 @@ if ($conn->connect_error) {
 }
 
 
-$sql = "INSERT INTO menards_payment_data (date_info, hours, weekend, user_id)
+$sql = "INSERT INTO past_payment_data (date_info, hours, weekend, user_id)
 VALUES ('$date', $hours, '$weekend', '$userid')";
 
 

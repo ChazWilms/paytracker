@@ -27,7 +27,7 @@ $result = $conn->execute_query('SELECT search_id FROM locationtracking.cookies_t
 
 $money = 0;
 $hours = 0;
-$result = $conn->execute_query('SELECT hours, hourly_pay FROM locationtracking.menards_payment_data WHERE date_info >= (CURDATE()-INTERVAL 7 DAY) and user_id = ?', [$userID]);
+$result = $conn->execute_query('SELECT hours, hourly_pay FROM locationtracking.past_payment_data WHERE date_info >= (CURDATE()-INTERVAL 7 DAY) and user_id = ?', [$userID]);
 
 $data2 =  array();
 $infodata = array();

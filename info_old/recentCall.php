@@ -16,7 +16,7 @@ if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "SELECT date_info, hours FROM menards_payment_data where user_id='".$userID . "' AND date_info >= (CURDATE()-INTERVAL 7 DAY) order by id desc LIMIT 10";
+$sql = "SELECT date_info, hours FROM past_payment_data where user_id='".$userID . "' AND date_info >= (CURDATE()-INTERVAL 7 DAY) order by id desc LIMIT 10";
 $result = $conn->query($sql);
 
 $infodata = array();

@@ -38,7 +38,7 @@ if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "SELECT id, date_info, hours, weekend FROM menards_payment_data WHERE user_id='".$w."'";
+$sql = "SELECT id, date_info, hours, weekend FROM past_payment_data WHERE user_id='".$w."'";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
