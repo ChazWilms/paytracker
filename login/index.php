@@ -29,6 +29,8 @@ div, form, label, input, h2 {
 </head>
 
 <body>
+
+<p id="redirect_reason"></p>
 <h2>Paytracking Login</h2>
 
 
@@ -40,6 +42,25 @@ div, form, label, input, h2 {
   <input type="submit" value="Submit">
 </form> 
 </div>
+
+<script>
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+console.log(urlParams.has('reason'));
+if (urlParams.has('reason') == true) {
+
+if (urlParams.get('reason') == "1") {
+
+document.getElementById("redirect_reason").innerHTML = 'Attempted to view info page without logging in. <br>Please login';
+
+}
+
+console.log("tset sucessuf");
+
+
+}
+
+</script>
 
 </body>
 </html>
