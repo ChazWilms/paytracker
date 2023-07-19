@@ -8,6 +8,7 @@ if(isset($_COOKIE['XERWAILOGIN'])) {
   //echo json_encode("NOT_LOGGED_IN");
   //die;
 } else {
+  header("Location: https://xerwai.com/paytracking/login/");
   echo json_encode("NOT_LOGGED_IN");
   die;
 }
