@@ -33,7 +33,8 @@ if ($conn->query($sql) === TRUE) {
 
 $conn->close();
 
-
+header("Location: ../login?r=2");
+die();
 } else {
 echo "not logged in, cant log out";
 }

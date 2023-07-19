@@ -32,6 +32,7 @@ $result = $conn->execute_query('SELECT hours, hourly_pay FROM locationtracking.p
 
 $data2 =  array();
 $infodata = array();
+$nextwork = "";
 if ($result->num_rows > 0) {
   //echo json_encode($result->num_rows);
   //output data of each row
@@ -47,8 +48,28 @@ if ($result->num_rows > 0) {
   echo json_encode("0 results");
   exit;
 }
+$result2 = $conn->execute_query('SELECT start_time FROM locationtracking.future_work_dates WHERE date_info = CURDATE() and user_id = ?', [$userID]);
+if ($result2->num_rows > 0) {
+  //echo json_encode($result->num_rows);
+  //output data of each row
+  
+    while($row = $result2->fetch_assoc()) {
+
+        $nextwork = $row['start_time'];
+        }
+
+
+} else {
+  $data2[] = "No Work";
+}
+
+
+
+
+
 $data2[] = $money;
 $data2[] = $hours;
+$data2[] = $nextwork;
 echo json_encode($data2);
 
 $conn->close();

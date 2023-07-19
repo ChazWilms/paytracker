@@ -53,6 +53,10 @@ if (urlParams.get('r') == "1") {
 
 document.getElementById("redirect_reason").innerHTML = 'Attempted to view info page without logging in. <br>Please login';
 
+} else if (urlParams.get('r') == "2") {
+
+document.getElementById("redirect_reason").innerHTML = 'Successfully logged out. <br>Please come again';
+
 }
 
 console.log("tset sucessuf");

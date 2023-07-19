@@ -5,6 +5,10 @@
 <!DOCTYPE html>
 <html>
 
+<!-- change quick fiance to quick info and also display if there is work today-->
+<!-- add individal box for work today. one line  - time - hr - expected pay? -->
+
+
 <head>
 
 <link rel="stylesheet" href="./style.css">
@@ -178,7 +182,7 @@ $.getJSON('QfinanceCall.php', function(data) {
 if (data != "0 results" && data != "NOT_LOGGED_IN") {
     document.getElementById("qf_info").innerHTML= JSON.stringify(data);
     var str2 = '';
-    var str2 = str2.concat("Hours worked: "+data[1].toFixed(2) +'<br>'+ "Gross: $"       +   '<span style="color: green; font-weight: 600">'   + data[0].toFixed(2) + '</span>' + "<br>" + "Net:" + "N/A currently");
+    var str2 = str2.concat("Hours worked: "+data[1].toFixed(2) +'<br>'+ "Gross: $"       +   '<span style="color: green; font-weight: 600">'   + data[0].toFixed(2) + '</span>' + "<br>" + "Net:" + "N/A currently" + "<br>" + data[2]);
     document.getElementById("qf_info").innerHTML= str2;
 } else if (data == "0 results") {
     document.getElementById("qf_info").innerHTML= ("No Upcoming Work Days");
