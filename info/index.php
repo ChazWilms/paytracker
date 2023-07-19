@@ -73,7 +73,7 @@ if (data != "0 results" && data != "NOT_LOGGED_IN") {
     document.getElementById("recent").innerHTML= ("No Recent Work Days");
 
 } else if (data == "NOT_LOGGED_IN") {
-    window.location.replace("https://xerwai.com/paytracking/login/?reason=1");
+    window.location.replace("https://xerwai.com/paytracking/login/?r=1");
     document.getElementById("recent").innerHTML= ("Not Logged In");
 
 } else {
@@ -147,7 +147,7 @@ time = time_split[0] + ":" + time_split[1];
     document.getElementById("future").innerHTML= ("No Upcoming Work Days");
 
 } else if (data == "NOT_LOGGED_IN") {
-window.location.replace("https://xerwai.com/paytracking/login/?reason=1");
+window.location.replace("https://xerwai.com/paytracking/login/?r=1");
 document.getElementById("future").innerHTML= ("Not Logged In");
  
 
@@ -184,7 +184,7 @@ if (data != "0 results" && data != "NOT_LOGGED_IN") {
     document.getElementById("qf_info").innerHTML= ("No Upcoming Work Days");
 
 } else if (data == "NOT_LOGGED_IN") {
-window.location.replace("https://xerwai.com/paytracking/login/?reason=1");
+window.location.replace("https://xerwai.com/paytracking/login/?r=1");
 document.getElementById("qf_info").innerHTML= ("Not Logged In");
  
 
@@ -220,7 +220,7 @@ if (data != "0 results" && data != "NOT_LOGGED_IN") {
     document.getElementById("ef_info").innerHTML= ("No Upcoming Work Days");
 
 } else if (data == "NOT_LOGGED_IN") {
-window.location.replace("https://xerwai.com/paytracking/login/?reason=1");
+window.location.replace("https://xerwai.com/paytracking/login/?r=1");
 document.getElementById("ef_info").innerHTML= ("Not Logged In");
  
 
