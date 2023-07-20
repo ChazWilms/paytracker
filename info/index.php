@@ -182,7 +182,19 @@ $.getJSON('QfinanceCall.php', function(data) {
 if (data != "0 results" && data != "NOT_LOGGED_IN") {
     document.getElementById("qf_info").innerHTML= JSON.stringify(data);
     var str2 = '';
-    var str2 = str2.concat("Hours worked: "+data[1].toFixed(2) +'<br>'+ "Gross: $"       +   '<span style="color: green; font-weight: 600">'   + data[0].toFixed(2) + '</span>' + "<br>" + "Net:" + "N/A currently" + "<br>" + data[2]);
+    console.log(data[5]);
+    var str2 = str2.concat("Hours worked: "+data[1].toFixed(2) +
+                            '<br>'+ "Gross: $"       +   '<span style="color: yellow; font-weight: 600">'   + data[0].toFixed(2) + '</span>' + 
+                            "<br>"+ "Tax W/H: $" + '<span style="color: red; font-weight: 600">' + Math.round(data[5] * 100) / 100 + '</span>'+ 
+                            "<br>" + "Net: $" +'<span style="color: green; font-weight: 600">' + data[4].toFixed(2) + '</span>' +"<br>" + data[2]);
+
+
+
+
+
+
+
+
     document.getElementById("qf_info").innerHTML= str2;
 } else if (data == "0 results") {
     document.getElementById("qf_info").innerHTML= ("No Upcoming Work Days");
