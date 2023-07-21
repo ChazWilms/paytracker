@@ -68,7 +68,7 @@ if ($result2->num_rows > 0) {
 
 
 } else {
-  $data2[] = "No Work";
+  $nextwork = "No Work";
 }
 
 
