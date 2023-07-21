@@ -9,6 +9,8 @@ echo 'version4<br>';
 echo htmlspecialchars($_POST["date"]);
 echo '<br>';
 $w = htmlspecialchars($_POST["weekend"]);
+$pay = htmlspecialchars($_POST["pay"]);
+
 echo '<br>';
 if ($w == "") {
     echo "not weekend";
@@ -37,7 +39,7 @@ echo '<br>';
 include '../../config.php';
 //db connection
 
-//weekend set up top
+//weekend set up top + hourly pay
 $date = htmlspecialchars($_POST["date"]);
 $hours = htmlspecialchars($_POST["hours"]);
 $userid = htmlspecialchars($_POST["userid"]);
@@ -55,8 +57,8 @@ if ($conn->connect_error) {
 }
 
 
-$sql = "INSERT INTO past_payment_data (date_info, hours, weekend, user_id)
-VALUES ('$date', '$hours', '$weekend', '$userid')";
+$sql = "INSERT INTO past_payment_data (date_info, hours, weekend, user_id, hourly_pay)
+VALUES ('$date', '$hours', '$weekend', '$userid', '$pay')";
 
 
 
