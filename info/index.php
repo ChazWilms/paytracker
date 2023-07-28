@@ -228,9 +228,21 @@ console.log("EF begin");
 $.getJSON('LfinanceCall.php', function(data) {
     document.getElementById("ef_info").innerHTML= JSON.stringify(data);
 if (data != "0 results" && data != "NOT_LOGGED_IN") {
+    console.log(data);
     document.getElementById("ef_info").innerHTML= JSON.stringify(data);
     var str2 = '';
-    var str2 = str2.concat("Hours worked: "+data[1].toFixed(2) +'<br>'+ "Gross: $"       +   '<span style="color: green; font-weight: 600">'   + data[0].toFixed(2) + '</span>' + "<br>" + "Net:" + "N/A currently");
+    var str2 = str2.concat("Hours worked: "+data[1].toFixed(2) +
+                '<br>'+ "Gross: $"       +   '<span style="color: yellow; font-weight: 600">'   + data[0].toFixed(2) + '</span>' + 
+				"<br>" + "Tax: $" +  '<span style="color: red; font-weight: 600">'   + data[4].toFixed(2) + '</span>' + 
+				"<br>" + "Net: $" +  '<span style="color: green; font-weight: 600">'   + data[3].toFixed(2) + '</span>'
+
+);
+
+
+
+
+
+
     document.getElementById("ef_info").innerHTML= str2;
 } else if (data == "0 results") {
     document.getElementById("ef_info").innerHTML= ("No Upcoming Work Days");

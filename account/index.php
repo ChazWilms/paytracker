@@ -29,6 +29,7 @@
 </ul>
 </div>
 
+<p>account info is a wip, when avalible it will have settings to change in account and modify values</p>
 
 
 

@@ -73,17 +73,6 @@ if ($result2->num_rows > 0) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 $data2[] = $money;
 $data2[] = $hours;
 $data2[] = $nextwork;

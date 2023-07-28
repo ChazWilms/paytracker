@@ -24,6 +24,23 @@ $result = $conn->execute_query('SELECT search_id FROM locationtracking.cookies_t
  while ($row = $result->fetch_assoc()) {
   $userID = $row["search_id"];
  }
+$result11 = $conn->execute_query('SELECT tax_rate_approx FROM locationtracking.account_info WHERE user_id = ?', [$userID]);
+ while ($row = $result11->fetch_assoc()) {
+  $tax_rate = $row["tax_rate_approx"];
+ }
+$tax_multi = (abs($tax_rate-100))/100;
+
+
+
+
+
+
+
+
+
+
+
+
 
 $money = 0;
 $hours = 0;
@@ -48,6 +65,16 @@ if ($result->num_rows > 0) {
 }
 $data2[] = $money;
 $data2[] = $hours;
+$data2[] = $tax_rate;
+$data2[] = $tax_multi * $money;
+$data2[] = ($tax_rate /100) * $money;
+
+
+
+
+
+
+
 echo json_encode($data2);
 
 $conn->close();
