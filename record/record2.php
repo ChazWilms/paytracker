@@ -5,10 +5,25 @@
 
 <?php
 
+if(isset($_COOKIE['XERWAILOGIN'])) {
+  //echo json_encode("NOT_LOGGED_IN");
+  //die;
+} else {
+  echo json_encode("NOT_LOGGED_IN");
+  die;
+
+}
+
+
+
+
+
 echo 'version4<br>';
 echo htmlspecialchars($_POST["date"]);
 echo '<br>';
 $w = htmlspecialchars($_POST["weekend"]);
+$pay = htmlspecialchars($_POST["pay"]);
+
 echo '<br>';
 if ($w == "") {
     echo "not weekend";
@@ -26,8 +41,6 @@ if ($w == "") {
 echo '<br>';
 echo htmlspecialchars($_POST["hours"]);
 echo '<br>';
-echo htmlspecialchars($_POST["userid"]);
-echo '<br>';
 echo 'If this page doesnt redirect something went horibbly wrong, please close the tab and try again.';
 
 echo '<br>';
@@ -37,10 +50,9 @@ echo '<br>';
 include '../../config.php';
 //db connection
 
-//weekend set up top
+//weekend set up top + hourly pay
 $date = htmlspecialchars($_POST["date"]);
 $hours = htmlspecialchars($_POST["hours"]);
-$userid = htmlspecialchars($_POST["userid"]);
 //fetch data
 
 
@@ -55,8 +67,18 @@ if ($conn->connect_error) {
 }
 
 
-$sql = "INSERT INTO past_payment_data (date_info, hours, weekend, user_id)
-VALUES ('$date', '$hours', '$weekend', '$userid')";
+
+$result = $conn->execute_query('SELECT search_id FROM locationtracking.cookies_table WHERE cookie = ?', [$_COOKIE['XERWAILOGIN']]);
+ while ($row = $result->fetch_assoc()) {
+  $userID = $row["search_id"];
+ }
+
+
+
+
+
+$sql = "INSERT INTO past_payment_data (date_info, hours, weekend, user_id, hourly_pay)
+VALUES ('$date', '$hours', '$weekend', '$userID', '$pay')";
 
 
 

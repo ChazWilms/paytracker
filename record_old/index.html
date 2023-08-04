@@ -16,11 +16,11 @@
 </ul>
 
 
-<!-- remove the need for asking for user id by using the cookie to get the id when submitted, this will reduce time and stuff. -->
+
 
 
 <h2>Submit work info</h2>
-<h2>Make sure to check if date is correct</h2>
+<h2>If submitting after about 9pm. the date may need to be changed back a day</h2>
 
 <form action="./record2.php" onsubmit="return validateForm()" method="post", name="payForm">
   <label for="date">Date:</label>
@@ -29,11 +29,8 @@
   <label for="weekend">Weekend?</label>
 <input type="checkbox" id="weekend" name="weekend" value="weekend">
 <br>
-  <label for="hours">Hours worked(float(Ex. 5.47)):</label>
+  <label for="hours">Hours worked(int):</label>
   <input type="text" id="hours" name="hours" value=""><br>
-
-  <label for="pay">Hourly pay (float(Ex. 15.47)):</label>
-  <input type="text" id="pay" name="pay" value=""><br>
 
 
   <label for="userid">User ID:</label>
@@ -73,25 +70,16 @@ function validateForm() {
 
 
 
-function subtractHours(date, hours) {
-  date.setHours(date.getHours() - hours);
-
-  return date;
-}
 
 
 
 
 
 
-var mememe = new Date();
 
-const newDate = subtractHours(mememe, 4);
 
-document.getElementById('date').valueAsDate = newDate;
-
-console.log(mememe);
-
+document.getElementById('date').valueAsDate = new Date();
+document.getElementById('userid').value = "ad";
 </script>
 
 
