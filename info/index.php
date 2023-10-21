@@ -196,7 +196,7 @@ if (data != "0 results" && data != "NOT_LOGGED_IN") {
 
     document.getElementById("qf_info").innerHTML= str2;
 } else if (data == "0 results") {
-    document.getElementById("qf_info").innerHTML= ("No Upcoming Work Days");
+    document.getElementById("qf_info").innerHTML= ("No Work In Past Week");
 
 } else if (data == "NOT_LOGGED_IN") {
 window.location.replace("https://xerwai.com/paytracking/login/?r=1");
