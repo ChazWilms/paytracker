@@ -132,7 +132,7 @@ time = (data[i].start_time).split(' ')[1];
 time_split = time.split(':');
 if (time_split[1] == "00" && time_split[2] == "00") {
 time = time_split[0];
-} else if (time_split[1] == "00") {
+} else if (time_split[2] == "00") {
 time = time_split[0] + ":" + time_split[1];
 
 } else { time = time}
