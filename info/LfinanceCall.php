@@ -9,14 +9,19 @@ if(isset($_COOKIE['XERWAILOGIN'])) {
 
 }
 
-
-
+$startTime = time();
+$dttime = date("Y-m-d H:i:s",$startTime);
+$fname = "longFinance";
 include '../../config.php';
+
+include '../recordTime.php';
+
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 // Check connection
 if ($conn->connect_error) {
+  recordUse($fname, $dttime, $startTime, time(), $userID, "connFail");
   die("Connection failed: " . $conn->connect_error);
 }
 
@@ -60,6 +65,7 @@ if ($result->num_rows > 0) {
 
 
 } else {
+  recordUse($fname, $dttime, $startTime, time(), $userID, "success-0r");
   echo json_encode("0 results");
   exit;
 }
@@ -74,7 +80,7 @@ $data2[] = ($tax_rate /100) * $money;
 
 
 
-
+recordUse($fname, $dttime, $startTime, time(), $userID, "success");
 echo json_encode($data2);
 
 $conn->close();

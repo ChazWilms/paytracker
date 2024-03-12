@@ -14,15 +14,20 @@ if(isset($_COOKIE['XERWAILOGIN'])) {
 
 }
 
-
-
+$startTime = time();
+$dttime = date("Y-m-d H:i:s",$startTime);
+$fname = "futureCall";
 include '../../config.php';
+
+include '../recordTime.php';
+
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 // Check connection
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
+  recordUse($fname, $dttime, $startTime, time(), $userID, "connFail");
 }
 
 $result = $conn->execute_query('SELECT search_id FROM locationtracking.cookies_table WHERE cookie = ?', [$_COOKIE['XERWAILOGIN']]);
@@ -49,9 +54,11 @@ if ($result->num_rows > 0) {
 
 } else {
   echo json_encode("0 results");
+  recordUse($fname, $dttime, $startTime, time(), $userID, "success-0r");
   $conn->close();
   exit;
 }
+recordUse($fname, $dttime, $startTime, time(), $userID, "success");
 echo json_encode($infodata);
 
 

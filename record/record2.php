@@ -46,8 +46,13 @@ echo 'If this page doesnt redirect something went horibbly wrong, please close t
 echo '<br>';
 
 
-
+$startTime = time();
+$dttime = date("Y-m-d H:i:s",$startTime);
+$fname = "recordPage";
 include '../../config.php';
+
+include '../recordTime.php';
+
 //db connection
 
 //weekend set up top + hourly pay
@@ -63,6 +68,7 @@ $hours = htmlspecialchars($_POST["hours"]);
 $conn = new mysqli($servername, $username, $password, $dbname);
 
 if ($conn->connect_error) {
+  recordUse($fname, $dttime, $startTime, time(), $userID, "connFail");
   die("Connection failed: " . $conn->connect_error);
 }
 
@@ -83,8 +89,10 @@ VALUES ('$date', '$hours', '$weekend', '$userID', '$pay')";
 
 
 if ($conn->query($sql) === TRUE) {
+  recordUse($fname, $dttime, $startTime, time(), $userID, "recordSuccess");
   echo "New record created successfully";
 } else {
+  recordUse($fname, $dttime, $startTime, time(), $userID, "recordFail");
   echo "Error: " . $sql . "<br>" . $conn->error;
 }
 

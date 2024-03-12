@@ -12,13 +12,19 @@ if(isset($_COOKIE['XERWAILOGIN'])) {
   echo json_encode("NOT_LOGGED_IN");
   die;
 }
-
+$startTime = time();
+$dttime = date("Y-m-d H:i:s",$startTime);
+$fname = "userCall";
 include '../../config.php';
+
+include '../recordTime.php';
+
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 // Check connection
 if ($conn->connect_error) {
+  recordUse($fname, $dttime, $startTime, time(), $userID, "connFail");
   die("Connection failed: " . $conn->connect_error);
 }
 
@@ -40,13 +46,15 @@ if ($result->num_rows > 0) {
 
 
 } else {
+  recordUse($fname, $dttime, $startTime, time(), $userID, "success-0r");
   echo json_encode("0 results");
   $conn->close();
   exit;
 }
+recordUse($fname, $dttime, $startTime, time(), $userID, "success");
 echo json_encode($infodata2);
 
-
+$conn->close();
 
 
 

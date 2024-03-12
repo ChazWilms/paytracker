@@ -25,13 +25,17 @@ foreach ($array3 as $key => $val) {
    echo $val;
 }
 
-
+$startTime = time();
+$dttime = date("Y-m-d H:i:s",$startTime);
+$fname = "recordFuture";
 include '../../config.php';
 
+include '../recordTime.php';
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 // Check connection
 if ($conn->connect_error) {
+  recordUse($fname, $dttime, $startTime, time(), $userID, "connFail");
   die("Connection failed: " . $conn->connect_error);
 }
 
@@ -60,6 +64,7 @@ for ($x = 0; $x <= $lenthg-1; $x++) {
 
 }
 $conn->close();
+recordUse($fname, $dttime, $startTime, time(), $userID, "success");
 header("Location: https://xerwai.com/paytracking/info");
 die();
 
