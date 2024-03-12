@@ -29,6 +29,13 @@ if (isset($_COOKIE["XERWAILOGIN"])) {
     $amountCookie = $_COOKIE["XERWAILOGIN"];
     setcookie('XERWAILOGIN', '', time()-7000000, '/');
 
+
+$result = $conn->execute_query('SELECT search_id FROM locationtracking.cookies_table WHERE cookie = ?', [$_COOKIE['XERWAILOGIN']]);
+ while ($row = $result->fetch_assoc()) {
+  $userID = $row["search_id"];
+ }
+
+    
 $sql = "DELETE FROM locationtracking.cookies_table WHERE cookie='".  $amountCookie   .   "'";
 
 if ($conn->query($sql) === TRUE) {
