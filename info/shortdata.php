@@ -24,6 +24,8 @@
 <?php
 $w = htmlspecialchars($_POST["userid"]);
 echo 'USERID:'.$w;
+header("Location: index.php");
+die();
 
 
 
